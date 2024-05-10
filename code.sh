@@ -3,3 +3,4 @@ read -p "Enter the choic: " c
 if [ "$c"==1 ] then;
 read -p "Enter costumer name: " n
 grep "$n" Record.txt
+fi
