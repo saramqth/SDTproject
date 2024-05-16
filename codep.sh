@@ -11,7 +11,11 @@ while true; do
     
     if [ "$c" = "1" ]; then
         read -p "Enter customer name: " n
-        grep -i "$n" Record.txt
+            if ! grep -iq "$n" Record.txt; then
+            echo "Customer Does Not Have a Reservation!"
+        else
+            grep -i "$n" Record.txt
+        fi
     elif [ "$c" = "2" ]; then
         echo "1. Classic Twin Room\nFits up to: 4 individuals\n2 Single beds and 1 sofa bed\nPrice: SAR 103\n\n2. Classic Triple Room\nFits up to: 3 individuals\n2 Single beds and 1 sofa bed\nPrice: SAR 116\n\n3. Classic Quadruple Room\nFits up to: 4 individuals\n3 Single beds\nPrice: SAR 127" 
         read -p "Enter your choice: " r
@@ -35,6 +39,7 @@ while true; do
             price=$((127 * $d))
         fi
         echo "$n1, $ph, $room_tybe, $d days, SAR $price" >> Record.txt
+        echo "Reservation Done!";
     elif [ "$c" = "5" ]; then
         echo "Exiting..."
         break 
