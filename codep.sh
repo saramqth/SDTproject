@@ -40,8 +40,3 @@ while true; do
         fi
         echo "$n1, $ph, $room_tybe, $d days, SAR $price" >> Record.txt
         echo "Reservation Done!";
-    elif [ "$c" = "5" ]; then
-        echo "Exiting..."
-        break 
-    fi
-done
