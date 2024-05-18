@@ -40,3 +40,32 @@ while true; do
         fi
         echo "$n1, $ph, $room_tybe, $d days, SAR $price" >> Record.txt
         echo "Reservation Done!";
+    elif [ "$c" = "3" ]; then
+        echo "Room Services:"
+        echo "1. Laundry - SAR 50"
+        echo "2. Room Cleaning - SAR 30"
+        echo "3. Breakfast - SAR 20"
+        read -p "Enter the service you want please: " service_choice
+        if [ "$service_choice" = "1" ]; then
+            service_name="Laundry"
+            service_price=50
+        elif [ "$service_choice" = "2" ]; then
+            service_name="Room Cleaning"
+            service_price=30
+        elif [ "$service_choice" = "3" ]; then
+            service_name="Breakfast"
+            service_price=20
+        else
+            echo "Invalid choice!"
+            continue
+        fi
+        read -p "Enter your name: " resident_name
+        price_record=$(grep -i "$resident_name" Record.txt | awk -F ', ' '{print $6}' | grep -o '[0-9]*')
+        if [ -n "$price_record" ]; then
+            price=$((price_record + service_price))
+            echo "$service_name added to $resident_name's bill. New total price: SAR $price"
+            sed -i "/$resident_name/s/SAR [0-9]*/& + $service_name SAR $service_price, Total: SAR $price/" Record.txt
+        else
+            echo "Resident not found!"
+        
+        fi
