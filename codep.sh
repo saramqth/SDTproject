@@ -69,3 +69,31 @@ while true; do
             echo "Resident not found!"
         
         fi       
+       elif [ "$c" = "4" ]; then
+       read -p "Enter customer name for Check Out: " name_checkout
+       customer_info=$(grep -i "$name_checkout" Record.txt)
+        if [ -n "$customer_info" ]; then
+            echo "Customer Information:"
+            echo "$customer_info"
+            read -p "Payment method (cash or card): " payment_method
+            if [ "$payment_method" = "card" ]; then
+                read -p "Enter card number: " card_number
+                read -p "Enter card PIN: " card_pin
+                read -p "Enter amount to be charged: " amount
+                echo "Payment processed successfully. Thank you!"
+            elif [ "$payment_method" = "cash" ]; then
+                echo "Thank you!"
+            else
+                echo "Invalid payment method!"
+                continue
+            fi
+            sed -i "/$name_checkout/d" Record.txt
+            echo "Check Out completed for $name_checkout."
+        else
+            echo "Customer not found!"
+        fi
+    elif [ "$c" = "5" ]; then
+        echo "Exiting..."
+        break
+    fi
+done
